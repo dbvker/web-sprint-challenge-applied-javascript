@@ -21,7 +21,7 @@ const Tabs = (topics) => {
   topicsDiv.classList.add("topics");
 
   // Add Element Content
-  topics.forEach((item) => {
+  topics.forEach(item => {
     // Create DOM Element
     const tabDiv = document.createElement("div");
     // Add CSS Styling

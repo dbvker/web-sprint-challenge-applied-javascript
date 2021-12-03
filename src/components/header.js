@@ -25,7 +25,7 @@ const Header = (title, date, temp) => {
   // Add Element Content
   dateSpan.textContent = date;
   titleH1.textContent = title;
-  tempSpan.textContent = temp;
+  tempSpan.textContent = `${temp}°`;
 
   // Appending Elements
   headerDiv.append(dateSpan);
@@ -45,7 +45,7 @@ const Header = (title, date, temp) => {
 
 const headerAppender = (selector) => {
   const header = document.querySelector(selector);
-  header.appendChild(Header("BloomTech Times", "December 3, 2021", "61*"));
+  header.appendChild(Header("BloomTech Times", "December 3, 2021", "61"));
 }
 
 export { Header, headerAppender }

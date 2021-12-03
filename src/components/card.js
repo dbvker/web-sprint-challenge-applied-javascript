@@ -1,5 +1,6 @@
-const Card = (article) => {
-  // TASK 5
+import axios from "axios";
+
+// TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
   // It takes as its only argument an "article" object with `headline`, `authorPhoto` and `authorName` properties.
@@ -16,10 +17,39 @@ const Card = (article) => {
   //     <span>By { authorName }</span>
   //   </div>
   // </div>
-  //
+
+const Card = (article) => {
+  // Create DOM elements
+  const cardDiv = document.createElement("div");
+  const headlineDiv = document.createElement("div");
+  const authorDiv = document.createElement("div");
+  const imageDiv = document.createElement("div");
+  const authorPhotoImg = document.createElement("img");
+  const authorNameSpan = document.createElement("span");
+
+  // Add CSS Styling
+  cardDiv.classList.add("card");
+  headlineDiv.classList.add("headline");
+  authorDiv.classList.add("author");
+  imageDiv.classList.add("img-container");
+
+  // Add Text Components
+  headlineDiv.textContent = article.headline;
+  authorPhotoImg.src = article.authorPhoto;
+  authorNameSpan.textContent = article.authorName;
+
+  // Append Elements
+  cardDiv.appendChild(headlineDiv);
+  cardDiv.appendChild(authorDiv);
+    authorDiv.appendChild(imageDiv);
+      imageDiv.appendChild(authorPhotoImg);
+    authorDiv.appendChild(authorNameSpan);
+
+  return cardDiv;
 }
 
-const cardAppender = (selector) => {
+
+
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
@@ -27,7 +57,26 @@ const cardAppender = (selector) => {
   // However, the articles do not come organized in a single, neat array. Inspect the response closely!
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
-  //
-}
+
+const cardAppender = (selector) => {
+  axios
+    .get(`http://localhost:5000/api/articles`)
+    .then((resp) => {
+        const selectorElem = document.querySelector(selector);
+       const articleArray = Card(resp.data.articles.javascript[0]);
+       selectorElem.appendChild(articleArray);
+      // console.log(resp.data.articles);
+
+      
+
+
+
+
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .finally(console.log(`Articles worked!`));
+};
 
 export { Card, cardAppender }
